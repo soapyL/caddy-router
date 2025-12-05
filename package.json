@@ -10,7 +10,7 @@
     "nodemon": "^3.1.11"
   },
   "scripts": {
-    "dev": "nodemon --env-file=./.env src/index.js",
-    "start": "node --env-file=./.env src/index.js"
+    "dev": "nodemon --env-file=./.env index.js",
+    "start": "node --env-file=./.env index.js"
   }
 }

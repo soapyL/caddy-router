@@ -44,7 +44,7 @@ server.get('/containers/:container', async (req, res) => {
     const containerName = req.params.container
     const reload = await execContainer(containerName, ['caddy', 'reload', `--config ${process.env.CADDY_PATH}/${containerName}.caddy`])
     if (reload.exitCode === 127) {
-        res.redirect(`${process.env.HOST}:${process.env.PORT}`)
+        res.redirect(process.env.REDIRECT_PORT ? `${process.env.REDIRECT_HOST}:${process.env.REDIRECT_PORT}` : process.env.REDIRECT_HOST)
     } else {
         res.send(reload.output)
     }
