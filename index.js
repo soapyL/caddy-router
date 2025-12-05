@@ -40,7 +40,7 @@ server.get('/', async (req, res) => {
     const containers = await getDockerContainers()
     res.status(200).send(`
         <h1>Containers</h1>
-        ${containers.map(container => `<a class='container-buttons' href='${process.env.PORT ? `${process.env.HOST}:${process.env.PORT}` : process.env.host}/containers/${container.Names[0].replace('/', '')}'>${container.Names[0].replace('/', '')}</a>`)}
+        ${containers.map(container => `<a class='container-buttons' href='${process.env.USE_HOST_PORT ? `${process.env.HOST}:${process.env.PORT}` : process.env.HOST}/containers/${container.Names[0].replace('/', '')}'>${container.Names[0].replace('/', '')}</a>`)}
     `)
 })
 
