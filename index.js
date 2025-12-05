@@ -10,26 +10,30 @@ const getDockerContainers = async () => {
 }
 
 const execContainer = async (containerName, cmd) => {
-    const container = docker.getContainer(containerName)
-    const exec = await container.exec({Cmd: cmd, AttachStdout: true, AttachStderr: true})
-    const stream = await exec.start()
+    try {
+        const container = docker.getContainer(containerName)
+        const exec = await container.exec({Cmd: cmd, AttachStdout: true, AttachStderr: true})
+        const stream = await exec.start()
 
-    return new Promise((resolve, reject) => {
-        let output = ''
+        return new Promise((resolve, reject) => {
+            let output = ''
 
-        stream.on('data', data => {
-            output += data.toString()
+            stream.on('data', data => {
+                output += data.toString()
+            })
+
+            stream.on('end', async () => {
+                const inspect = await exec.inspect()
+                resolve({ output, exitCode: inspect.ExitCode })
+            })
+
+            stream.on('error', () => {
+                reject()
+            })
         })
-
-        stream.on('end', async () => {
-            const inspect = await exec.inspect()
-            resolve({ output, exitCode: inspect.ExitCode })
-        })
-
-        stream.on('error', () => {
-            reject()
-        })
-    })
+    } catch (error) {
+        return error
+    }
 }
 
 server.get('/', async (req, res) => {
