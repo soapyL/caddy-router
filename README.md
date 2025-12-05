@@ -1,6 +1,6 @@
 Set these vars in /.env:
 
-- PORT
+- PORT (optional)
 - CONTAINER_PREFIX
 - CADDY_PATH
 - REDIRECT_HOST
