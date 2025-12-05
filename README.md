@@ -1,0 +1,6 @@
+Set these vars in /.env:
+
+PORT
+CONTAINER_PREFIX
+CADDY_PATH
+HOST

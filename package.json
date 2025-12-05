@@ -1,6 +1,16 @@
 {
   "name": "caddy-router",
   "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "axios": "^1.13.2",
+    "dockerode": "^4.0.9",
+    "express": "^5.2.1",
+    "nodemon": "^3.1.11"
+  },
+  "scripts": {
+    "dev": "nodemon --env-file=./.env src/index.js",
+    "start": "node --env-file=./.env src/index.js"
+  }
 }
